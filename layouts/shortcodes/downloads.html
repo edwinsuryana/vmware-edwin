@@ -1,0 +1,20 @@
+{{- $folder := .Get "folder" -}}
+{{- $boxTitle := .Get "boxTitle" -}}
+
+<section class="attachments green">
+	<label>
+		<i class="fas fa-paperclip" aria-hidden="true"></i>
+		{{ $boxTitle }}
+	</label>
+	<div class="attachments-files">
+	{{ range (readDir ( print "static/files/downloads/" $folder)) }}
+		<li>
+			<a href="{{ print "/files/downloads/" $folder "/" .Name }}">
+				{{.Name}}
+			</a>
+			({{div .Size 1024 }} {{T "BinaryPrefix-kilobyte"}})
+		</li>
+	{{ end }}
+	</div>
+	{{.Inner}}
+</section>
